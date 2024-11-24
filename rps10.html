@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock Paper Scissors</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 2px solid #000;
+      border-radius: 10px;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    .scores, .result {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    .winner {
+      font-weight: bold;
+      margin-top: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Rock Paper Scissors</h1>
+    <p>Type "rock," "paper," or "scissors" below and click Play:</p>
+
+    <input type="text" id="userInput" placeholder="Enter your choice">
+    <button id="playButton">Play</button>
+
+    <div class="scores">
+      <p>Your Score: <span id="userScore">0</span></p>
+      <p>Computer Score: <span id="computerScore">0</span></p>
+    </div>
+
+    <div class="result">
+      <p id="roundResult"></p>
+      <p class="winner" id="finalWinner"></p>
+    </div>
+  </div>
+
+  <script>
+    let userScore = 0;
+    let computerScore = 0;
+    let roundCount = 0;
+    const maxRounds = 5;
+
+    function getComputerChoice() {
+      const choices = ["rock", "paper", "scissors"];
+      return choices[Math.floor(Math.random() * 3)];
+    }
+
+    function determineWinner(userChoice, computerChoice) {
+      if (userChoice === computerChoice) return "draw";
+      if (
+        (userChoice === "rock" && computerChoice === "scissors") ||
+        (userChoice === "paper" && computerChoice === "rock") ||
+        (userChoice === "scissors" && computerChoice === "paper")
+      ) {
+        return "user";
+      }                
+      return "computer";
+    }
+
+    
+    function playGame() {
+      const userChoice = document.getElementById("userInput").value.toLowerCase();
+      const computerChoice = getComputerChoice(); 
+      const resultDisplay = document.getElementById("roundResult");
+      const userScoreDisplay = document.getElementById("userScore");
+      const computerScoreDisplay = document.getElementById("computerScore");
+      const winnerDisplay = document.getElementById("finalWinner");
+
+      if (!["rock", "paper", "scissors"].includes(userChoice)) {
+        resultDisplay.textContent = "Invalid input! Please enter 'rock', 'paper', or 'scissors'.";
+        return;
+      }
+
+      const winner = determineWinner(userChoice, computerChoice); 
+      roundCount++;
+
+      if (winner === "user") {
+        userScore++;
+        resultDisplay.textContent = `You win this round! You chose ${userChoice}, computer chose ${computerChoice}.`;
+      } else if (winner === "computer") {
+        computerScore++;
+        resultDisplay.textContent = `Computer wins this round! You chose ${userChoice}, computer chose ${computerChoice}.`;
+      } else {
+        resultDisplay.textContent = `It's a draw! Both chose ${userChoice}.`;
+      }
+
+      userScoreDisplay.textContent = userScore;
+      computerScoreDisplay.textContent = computerScore;
+
+      if (roundCount === maxRounds) {
+        if (userScore > computerScore) {
+          winnerDisplay.textContent = "Congratulations! You are the overall winner!";
+        } else if (computerScore > userScore) {
+          winnerDisplay.textContent = "Computer wins the game! Better luck next time.";
+        } else {
+          winnerDisplay.textContent = "It's a tie! No overall winner.";
+        }
+
+        document.getElementById("playButton").disabled = true;
+      }
+    }
+
+    document.getElementById("playButton").addEventListener("click", playGame);
+  </script>
+</body>
+</html>

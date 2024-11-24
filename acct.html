@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Signup</title>
+    <link rel="stylesheet" href="acct.css">
+</head>
+<body>
+    <div class="container">
+
+        <div class="header">
+            <h1>Create a new account</h1>
+            <p>It's quick and easy.</p>
+        </div>
+        <hr>
+        <form class="signup-form" action="/signup" method="POST">
+            <div class="personals">
+                <input type="text" name="name" placeholder="First name" required>
+                <input type="text" name="surname" placeholder="Surname" required>
+            </div>
+
+            <div class="dob-container">
+                <p class="dob">Date of birth</p>
+                <div class="dob-details">
+                    <select name="day" required>
+                        <option value="" disabled selected>Day</option>
+                        <script>
+                            for (let i = 1; i <= 31; i++) {
+                                document.write(`<option value="${i}">${i}</option>`);
+                            }
+                        </script>
+                    </select>
+                    <select name="month" required>
+                        <option value="" disabled selected>Month</option>
+                        <option value="1">Jan</option>
+                        <option value="2">Feb</option>
+                        <option value="3">Mar</option>
+                        <option value="4">Apr</option>
+                        <option value="5">May</option>
+                        <option value="6">Jun</option>
+                        <option value="7">Jul</option>
+                        <option value="8">Aug</option>
+                        <option value="9">Sep</option>
+                        <option value="10">Oct</option>
+                        <option value="11">Nov</option>
+                        <option value="12">Dec</option>
+                    </select>
+                    <select name="year" required>
+                        <option value="" disabled selected>Year</option>
+                        <script>
+                            const currentYear = new Date().getFullYear();
+                            for (let i = currentYear; i >= 1900; i--) {
+                                document.write(`<option value="${i}">${i}</option>`);
+                            }
+                        </script>
+                    </select>
+                </div>
+            </div>
+            <div class="gender-container">
+                <label for="gender">Gender</label>
+                <div class="gender-group">
+                    <div class="gender-options">
+                        <label for="female">Female</label>
+                        <input type="radio" name="gender" value="female" required>
+                    </div>
+                    <div class="gender-options">
+                        <label for="male">Male</label>
+                        <input type="radio" name="gender" value="male" required>
+                    </div>
+                    <div class="gender-options">
+                        <label for="custom">Custom</label>
+                        <input type="radio" name="gender" value="custom">                       
+                    </div>
+                </div>
+            </div>
+
+            <input type="email" name="email" placeholder="Mobile number or email address" required>
+            <input type="password" name="password" placeholder="New password" required>
+
+            <p>People who use our service may have uploaded your contact information to Facebook. <a href="https://www.Facebook.com">Learn more.</a></p>
+            <p>By clicking Sign Up, you agree to our <a href="https://www.Facebook.com"> Terms</a> ,<a href="https://www.Facebook.com">Privacy Policy</a> and <a href="https://www.Facebook.com"> Cookies Policy.</a> You may recieve SMS notificaation from us and can opt out at any time.</p>
+        
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</body>
+</html>
